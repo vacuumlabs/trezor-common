@@ -158,7 +158,7 @@ message CardanoSignTx {
      * Stakepool relay parameters
      */
     message CardanoPoolRelayParametersType {
-        required CardanoPoolRelayType type = 1;
+        optional CardanoPoolRelayType type = 1;
         optional bytes ipv4_address = 2;
         optional bytes ipv6_address = 3;
         optional string host_name = 4; 
@@ -169,21 +169,21 @@ message CardanoSignTx {
      * Stakepool metadata parameters
      */
     message CardanoPoolMetadataType {
-        required string url = 1;
-        required bytes hash = 2;
+        optional string url = 1;
+        optional bytes hash = 2;
     }
 
     /**
      * Stakepool parameters
      */
     message CardanoPoolParametersType {
-        required bytes pool = 1;
-        required bytes vrf_key_hash = 2;
-        required uint64 pledge = 3;
-        required uint64 cost = 4;
-        required uint64 margin_numerator = 5;
-        required uint64 margin_denominator = 6;
-        required bytes reward_account_key_hash = 7;
+        optional bytes pool = 1;
+        optional bytes vrf_key_hash = 2;
+        optional uint64 pledge = 3;
+        optional uint64 cost = 4;
+        optional uint64 margin_numerator = 5;
+        optional uint64 margin_denominator = 6;
+        optional bytes reward_account_key_hash = 7;
         repeated CardanoPoolOwnerType owners = 8;
         repeated CardanoPoolRelayParametersType relays = 9;
         optional CardanoPoolMetadataType metadata = 10;
