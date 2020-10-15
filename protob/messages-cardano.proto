@@ -183,13 +183,13 @@ message CardanoSignTx {
         optional uint64 cost = 4;                             // cost in lovelace
         optional uint64 margin_numerator = 5;                 // pool margin numerator
         optional uint64 margin_denominator = 6;               // pool margin denominator
-        optional bytes reward_account_key_hash = 7;           // reward address where the pool receives rewards
+        optional string reward_account = 7;                   // bech32 reward address where the pool receives rewards
         repeated CardanoPoolOwnerType owners = 8;             // pool owners list
         repeated CardanoPoolRelayParametersType relays = 9;   // pool relays list
         optional CardanoPoolMetadataType metadata = 10;       // pool metadata
     }
 
-        /**
+    /**
      * Structure representing cardano transaction certificate
      */
      message CardanoTxCertificateType {
