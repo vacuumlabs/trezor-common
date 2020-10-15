@@ -29,7 +29,7 @@ enum CardanoCertificateType {
     STAKE_REGISTRATION = 0;
     STAKE_DEREGISTRATION = 1;
     STAKE_DELEGATION = 2;
-    STAKEPOOL_REGISTRATION = 3;
+    STAKE_POOL_REGISTRATION = 3;
 }
 
 enum CardanoPoolRelayType {
@@ -147,56 +147,56 @@ message CardanoSignTx {
     }
 
     /**
-     * Stakepool owner parameters
+     * Stake pool owner parameters
      */
     message CardanoPoolOwnerType {
-        optional bytes staking_key_hash = 1;
-        repeated uint32 staking_key_path = 2;
+        repeated uint32 staking_key_path = 1;   // BIP-32-style path to derive staking key of the owner
+        optional bytes staking_key_hash = 2;    // owner's staking key if it is an external owner
     }
 
     /**
-     * Stakepool relay parameters
+     * Stake pool relay parameters
      */
     message CardanoPoolRelayParametersType {
-        optional CardanoPoolRelayType type = 1;
-        optional bytes ipv4_address = 2;
-        optional bytes ipv6_address = 3;
-        optional string host_name = 4; 
-        optional uint32 port = 5;
+        optional CardanoPoolRelayType type = 1;   // pool relay type
+        optional bytes ipv4_address = 2;          // ipv4 address of the relay given as 4 bytes
+        optional bytes ipv6_address = 3;          // ipv6 address of the relay given as 16 bytes
+        optional string host_name = 4;            // relay host name given as URL, at most 64 characters
+        optional uint32 port = 5;                 // relay port number in the range 0-65535
     }
 
     /**
-     * Stakepool metadata parameters
+     * Stake pool metadata parameters
      */
     message CardanoPoolMetadataType {
-        optional string url = 1;
-        optional bytes hash = 2;
+        optional string url = 1;   // stake pool url hosting metadata, at most 64 characters
+        optional bytes hash = 2;   // stake pool metadata hash
     }
 
     /**
-     * Stakepool parameters
+     * Stake pool parameters
      */
     message CardanoPoolParametersType {
-        optional bytes pool = 1;
-        optional bytes vrf_key_hash = 2;
-        optional uint64 pledge = 3;
-        optional uint64 cost = 4;
-        optional uint64 margin_numerator = 5;
-        optional uint64 margin_denominator = 6;
-        optional bytes reward_account_key_hash = 7;
-        repeated CardanoPoolOwnerType owners = 8;
-        repeated CardanoPoolRelayParametersType relays = 9;
-        optional CardanoPoolMetadataType metadata = 10;
+        optional bytes pool_id = 1;                           // stake pool cold public key hash (28 bytes)       
+        optional bytes vrf_key_hash = 2;                      // VRF key hash (32 bytes)
+        optional uint64 pledge = 3;                           // pledge amount in lovelace
+        optional uint64 cost = 4;                             // cost in lovelace
+        optional uint64 margin_numerator = 5;                 // pool margin numerator
+        optional uint64 margin_denominator = 6;               // pool margin denominator
+        optional bytes reward_account_key_hash = 7;           // reward address where the pool receives rewards
+        repeated CardanoPoolOwnerType owners = 8;             // pool owners list
+        repeated CardanoPoolRelayParametersType relays = 9;   // pool relays list
+        optional CardanoPoolMetadataType metadata = 10;       // pool metadata
     }
 
-    /**
+        /**
      * Structure representing cardano transaction certificate
      */
-    message CardanoTxCertificateType {
+     message CardanoTxCertificateType {
         optional CardanoCertificateType type = 1;                 // certificate type
         repeated uint32 path = 2;                                 // BIP-32 path to derive (staking) key
         optional bytes pool = 3;                                  // pool hash
-        optional CardanoPoolParametersType pool_parameters = 4;   // used for stakepool registration certificate
+        optional CardanoPoolParametersType pool_parameters = 4;   // used for stake pool registration certificate
     }
     /**
      * Structure representing cardano transaction withdrawals
